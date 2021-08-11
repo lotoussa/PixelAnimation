@@ -6,6 +6,7 @@ import (
 	_ "image/png"
 	"time"
 
+	"../PixelAnimationGo/pkg/camera"
 	"../PixelAnimationGo/pkg/sprites"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
@@ -27,13 +28,19 @@ func run() {
 
 	win.SetSmooth(false)
 
-	hole := sprites.NewHole()
-	planet := sprites.InitPlanet()
-
 	last := time.Now()
 	dynamicDt := 0.0
 
+	cam := camera.NewCamera()
+
+	hole := sprites.NewHole()
+	planet := sprites.InitPlanet()
+
 	for !win.Closed() {
+
+		// try to move only the hole
+		cam.Cam = pixel.IM.Scaled(win.Bounds().Center(), cam.CamZoom).Moved(pixel.ZV.Sub(cam.CamPos))
+		win.SetMatrix(cam.Cam)
 
 		win.Clear(colornames.Darkslateblue)
 
@@ -48,7 +55,7 @@ func run() {
 		)
 
 		if win.JustPressed(pixelgl.MouseButtonLeft) {
-			planet.AddPlanet(win.MousePosition())
+			planet.AddPlanet(win.MousePosition(), cam)
 		}
 
 		for i, p := range planet.Sprites {
@@ -57,6 +64,8 @@ func run() {
 			//Moved(pixel.ZV.Add(pixel.V(dynamicDt*10, dynamicDt*10))),
 
 		}
+
+		cam.Move(win, dynamicDt)
 
 		win.Update()
 	}

@@ -3,6 +3,7 @@ package sprites
 import (
 	"path"
 
+	"../camera"
 	"github.com/faiface/pixel"
 )
 
@@ -26,13 +27,14 @@ func InitPlanet() Planet {
 	return planet
 }
 
-func (p *Planet) AddPlanet(mousePosition pixel.Vec) {
+func (p *Planet) AddPlanet(mousePosition pixel.Vec, cam camera.Camera) {
 	p.Sprites = append(
 		p.Sprites,
 		pixel.NewSprite(p.pic, p.pic.Bounds()),
 	)
+	mouse := cam.Cam.Unproject(mousePosition)
 	p.Matrices = append(
 		p.Matrices,
-		pixel.IM.Moved(mousePosition),
+		pixel.IM.Moved(mouse),
 	)
 }
