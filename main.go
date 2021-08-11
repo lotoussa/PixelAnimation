@@ -1,7 +1,10 @@
 package main
 
+// import with "github.com/lotoussa/PixelAnimation/pkg"
+
 import (
 	_ "image/png"
+	"time"
 
 	"../PixelAnimationGo/pkg"
 	"github.com/faiface/pixel"
@@ -27,34 +30,32 @@ func run() {
 	hole := pkg.NewObject([]string{"holeA.png", "holeB.png", "holeC.png"})
 	planet := pkg.NewObject([]string{"planetA.png"})
 
-	i := 0
-
-	rect := pixel.R(0, 0, 10, 10)
+	last := time.Now()
+	dynamicDt := 0.0
 
 	for !win.Closed() {
 
-		if i % 10 == 0 {
-			win.Clear(colornames.Darkslategrey)
+		win.Clear(colornames.Darkslategrey)
 
-			hole.DrawObject(
-				i % 3,
-				win,
-				pixel.IM.
-					Moved(win.Bounds().Center()),
-			)
+		dt := time.Since(last).Seconds()
+		last = time.Now()
 
-			planet.DrawObject(
-				0,
-				win,
-				pixel.IM.
-					Rotated(pixel.ZV, float64(i / 2)).
-					Moved(pixel.ZV.Add(pixel.V(float64(i), float64(i)))),
-			)
+		dynamicDt += 3 * dt
 
-			rect = rect.
-		}
+		hole.DrawObject(
+			int(dynamicDt * 2) % 3,
+			win,
+			pixel.IM.
+				Moved(win.Bounds().Center()),
+		)
 
-		i++
+		planet.DrawObject(
+			0,
+			win,
+			pixel.IM.
+				Rotated(pixel.ZV, dynamicDt).
+				Moved(pixel.ZV.Add(pixel.V(dynamicDt * 10, dynamicDt * 10))),
+		)
 
 		win.Update()
 	}
