@@ -34,16 +34,16 @@ func NewCamera() Camera {
 
 func (c *Camera) Move(win *pixelgl.Window, dt float64) {
 	if win.Pressed(pixelgl.KeyLeft) {
-		c.CamPos.X += c.CamSpeed * dt
-	}
-	if win.Pressed(pixelgl.KeyRight) {
 		c.CamPos.X -= c.CamSpeed * dt
 	}
+	if win.Pressed(pixelgl.KeyRight) {
+		c.CamPos.X += c.CamSpeed * dt
+	}
 	if win.Pressed(pixelgl.KeyDown) {
-		c.CamPos.Y += c.CamSpeed * dt
+		c.CamPos.Y -= c.CamSpeed * dt
 	}
 	if win.Pressed(pixelgl.KeyUp) {
-		c.CamPos.Y -= c.CamSpeed * dt
+		c.CamPos.Y += c.CamSpeed * dt
 	}
 	c.zoom(win)
 }
