@@ -58,7 +58,7 @@ func run() {
 			planet.AddPlanet(win.MousePosition(), cam)
 		}
 
-		planet.DrawBatch(win)
+		planet.DrawBatch(win, dynamicDt)
 
 		cam.Move(win, dt*500)
 

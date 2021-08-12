@@ -43,11 +43,11 @@ func (p *Planet) AddPlanet(mousePosition pixel.Vec, cam camera.Camera) {
 	)
 }
 
-func (p *Planet) DrawBatch(win *pixelgl.Window) {
+func (p *Planet) DrawBatch(win *pixelgl.Window, dynamicDt float64) {
 	p.Batch.Clear()
 	for i, planet := range p.Sprites {
-		planet.Draw(p.Batch, p.Matrices[i])
-		//Rotated(pixel.ZV, dynamicDt).
+		planet.Draw(p.Batch, p.Matrices[i].
+			Rotated(win.Bounds().Center(), dynamicDt))
 		//Moved(pixel.ZV.Add(pixel.V(dynamicDt*10, dynamicDt*10))),
 
 	}
