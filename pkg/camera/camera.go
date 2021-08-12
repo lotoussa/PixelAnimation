@@ -10,48 +10,48 @@ import (
 )
 
 type Camera struct {
-	CamPos         pixel.Vec
-	CamSpeed       float64
-	CamZoom        float64
-	InverseCamZoom float64
-	CamZoomSpeed   float64
-	Frames         int
-	Second         <-chan time.Time
-	Cam            pixel.Matrix
+	Pos         pixel.Vec
+	Speed       float64
+	Zoom        float64
+	InverseZoom float64
+	ZoomSpeed   float64
+	Frames      int
+	Second      <-chan time.Time
+	Cam         pixel.Matrix
 }
 
 func NewCamera() Camera {
 	return Camera{
-		CamPos:         pixel.ZV,
-		CamSpeed:       0.72,
-		CamZoom:        1.0,
-		InverseCamZoom: 1.0,
-		CamZoomSpeed:   1.01,
-		Frames:         0,
-		Second:         time.Tick(time.Second),
+		Pos:         pixel.ZV,
+		Speed:       0.72,
+		Zoom:        1.0,
+		InverseZoom: 1.0,
+		ZoomSpeed:   1.01,
+		Frames:      0,
+		Second:      time.Tick(time.Second),
 	}
 }
 
 func (c *Camera) Move(win *pixelgl.Window, dt float64) {
 	if win.Pressed(pixelgl.KeyLeft) {
-		c.CamPos.X -= c.CamSpeed * dt
+		c.Pos.X -= c.Speed * dt
 	}
 	if win.Pressed(pixelgl.KeyRight) {
-		c.CamPos.X += c.CamSpeed * dt
+		c.Pos.X += c.Speed * dt
 	}
 	if win.Pressed(pixelgl.KeyDown) {
-		c.CamPos.Y -= c.CamSpeed * dt
+		c.Pos.Y -= c.Speed * dt
 	}
 	if win.Pressed(pixelgl.KeyUp) {
-		c.CamPos.Y += c.CamSpeed * dt
+		c.Pos.Y += c.Speed * dt
 	}
 	c.zoom(win)
 	c.reset(c, win)
 }
 
 func (c *Camera) zoom(win *pixelgl.Window) {
-	c.CamZoom *= math.Pow(c.CamZoomSpeed, win.MouseScroll().Y)
-	c.InverseCamZoom /= math.Pow(c.CamZoomSpeed, win.MouseScroll().Y)
+	c.Zoom *= math.Pow(c.ZoomSpeed, win.MouseScroll().Y)
+	c.InverseZoom /= math.Pow(c.ZoomSpeed, win.MouseScroll().Y)
 }
 
 func (c Camera) reset(currentCam *Camera, win *pixelgl.Window) {

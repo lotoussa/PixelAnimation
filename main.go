@@ -39,7 +39,7 @@ func run() {
 	for !win.Closed() {
 
 		// try to move only the hole
-		cam.Cam = pixel.IM.Scaled(win.Bounds().Center(), cam.CamZoom).Moved(pixel.ZV.Sub(cam.CamPos))
+		cam.Cam = pixel.IM.Scaled(win.Bounds().Center(), cam.Zoom).Moved(pixel.ZV.Sub(cam.Pos))
 		win.SetMatrix(cam.Cam)
 
 		win.Clear(colornames.Black)

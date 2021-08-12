@@ -39,7 +39,7 @@ func (p *Planet) AddPlanet(mousePosition pixel.Vec, cam camera.Camera) {
 	mouse := cam.Cam.Unproject(mousePosition)
 	p.Matrices = append(
 		p.Matrices,
-		pixel.IM.Scaled(pixel.ZV, cam.InverseCamZoom).Moved(mouse),
+		pixel.IM.Scaled(pixel.ZV, cam.InverseZoom).Moved(mouse),
 	)
 }
 
