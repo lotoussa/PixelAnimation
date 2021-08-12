@@ -42,7 +42,7 @@ func run() {
 		cam.Cam = pixel.IM.Scaled(win.Bounds().Center(), cam.CamZoom).Moved(pixel.ZV.Sub(cam.CamPos))
 		win.SetMatrix(cam.Cam)
 
-		win.Clear(colornames.Darkslateblue)
+		win.Clear(colornames.Black)
 
 		dt := time.Since(last).Seconds()
 		last = time.Now()

@@ -46,11 +46,18 @@ func (c *Camera) Move(win *pixelgl.Window, dt float64) {
 		c.CamPos.Y += c.CamSpeed * dt
 	}
 	c.zoom(win)
+	c.reset(c, win)
 }
 
 func (c *Camera) zoom(win *pixelgl.Window) {
 	c.CamZoom *= math.Pow(c.CamZoomSpeed, win.MouseScroll().Y)
 	c.InverseCamZoom /= math.Pow(c.CamZoomSpeed, win.MouseScroll().Y)
+}
+
+func (c Camera) reset(currentCam *Camera, win *pixelgl.Window) {
+	if win.Pressed(pixelgl.KeyR) {
+		*currentCam = NewCamera()
+	}
 }
 
 func (c *Camera) PrintFps(win *pixelgl.Window, config pixelgl.WindowConfig) {
