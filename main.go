@@ -58,16 +58,13 @@ func run() {
 			planet.AddPlanet(win.MousePosition(), cam)
 		}
 
-		for i, p := range planet.Sprites {
-			p.Draw(win, planet.Matrices[i])
-			//Rotated(pixel.ZV, dynamicDt).
-			//Moved(pixel.ZV.Add(pixel.V(dynamicDt*10, dynamicDt*10))),
+		planet.DrawBatch(win)
 
-		}
-
-		cam.Move(win, dynamicDt)
+		cam.Move(win, dt*500)
 
 		win.Update()
+
+		cam.PrintFps(win, config)
 	}
 }
 
