@@ -50,8 +50,9 @@ func (c *Camera) Move(win *pixelgl.Window, dt float64) {
 }
 
 func (c *Camera) zoom(win *pixelgl.Window) {
-	c.Zoom *= math.Pow(c.ZoomSpeed, win.MouseScroll().Y)
-	c.InverseZoom /= math.Pow(c.ZoomSpeed, win.MouseScroll().Y)
+	camZoom := math.Pow(c.ZoomSpeed, win.MouseScroll().Y)
+	c.Zoom *= camZoom
+	c.InverseZoom /= camZoom
 }
 
 func (c Camera) reset(currentCam *Camera, win *pixelgl.Window) {
