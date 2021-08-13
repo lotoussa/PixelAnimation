@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"../PixelAnimationGo/pkg/camera"
-	"../PixelAnimationGo/pkg/sprites"
+	"./pkg/sprite"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/faiface/pixel/text"
@@ -19,8 +19,8 @@ import (
 func gameLoop(
 	win *pixelgl.Window,
 	cam *camera.Camera,
-	hole *sprites.Hole,
-	planet *sprites.Planet,
+	hole *sprite.Hole,
+	planet *sprite.Planet,
 	config pixelgl.WindowConfig,
 	basicTxt *text.Text,
 ) error {
@@ -93,12 +93,12 @@ func run() {
 
 	cam := camera.NewCamera()
 
-	hole, err := sprites.NewHole()
+	hole, err := sprite.NewHole()
 	if err != nil {
 		panic(err)
 	}
 
-	planet, err := sprites.InitPlanet()
+	planet, err := sprite.InitPlanet()
 	if err != nil {
 		panic(err)
 	}

@@ -1,4 +1,4 @@
-package sprites
+package sprite
 
 import (
 	"path"
