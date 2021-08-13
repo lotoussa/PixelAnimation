@@ -7,7 +7,7 @@ import (
 	_ "image/png"
 	"time"
 
-	"../PixelAnimationGo/pkg/camera"
+	"./pkg/camera"
 	"./pkg/sprite"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
