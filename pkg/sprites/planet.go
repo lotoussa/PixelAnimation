@@ -15,12 +15,12 @@ type Planet struct {
 	pic      pixel.Picture
 }
 
-func InitPlanet() Planet {
-	planet := Planet{}
+func InitPlanet() (*Planet, error) {
+	planet := &Planet{}
 
 	pic, err := LoadPicture(path.Join("assets", "planetA.png"))
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	planet.Sprites = nil
@@ -28,7 +28,7 @@ func InitPlanet() Planet {
 	planet.Batch = pixel.NewBatch(&pixel.TrianglesData{}, pic)
 	planet.pic = pic
 
-	return planet
+	return planet, nil
 }
 
 func (p *Planet) AddPlanet(mousePosition pixel.Vec, cam camera.Camera) {

@@ -20,8 +20,8 @@ type Camera struct {
 	Cam         pixel.Matrix
 }
 
-func NewCamera() Camera {
-	return Camera{
+func NewCamera() *Camera {
+	return &Camera{
 		Pos:         pixel.ZV,
 		Speed:       0.72,
 		Zoom:        1.0,
@@ -57,7 +57,7 @@ func (c *Camera) zoom(win *pixelgl.Window) {
 
 func (c Camera) reset(currentCam *Camera, win *pixelgl.Window) {
 	if win.Pressed(pixelgl.KeyR) {
-		*currentCam = NewCamera()
+		*currentCam = *NewCamera()
 	}
 }
 
@@ -65,7 +65,7 @@ func (c *Camera) PrintFps(win *pixelgl.Window, config pixelgl.WindowConfig) {
 	c.Frames++
 	select {
 	case <-c.Second:
-		win.SetTitle(fmt.Sprintf("%s | FPS: %d", config.Title, c.Frames))
+		win.SetTitle(fmt.Sprintf("%s | Fps: %d", config.Title, c.Frames))
 		c.Frames = 0
 	default:
 	}

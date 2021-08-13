@@ -10,16 +10,16 @@ type Hole struct {
 	Sprites []*pixel.Sprite
 }
 
-func NewHole() Hole {
-	hole := Hole{}
+func NewHole() (*Hole, error) {
+	hole := &Hole{}
 
 	for _, picPath := range []string{"holeA.png", "holeB.png", "holeC.png"} {
 		pic, err := LoadPicture(path.Join("assets", picPath))
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 		hole.Sprites = append(hole.Sprites, pixel.NewSprite(pic, pic.Bounds()))
 	}
 
-	return hole
+	return hole, nil
 }
